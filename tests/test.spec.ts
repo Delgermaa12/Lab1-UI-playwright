@@ -9,11 +9,11 @@ test('амжилттай нэвтрэх', async({page})=>{
   await page.getByPlaceholder('Password').fill('secret_sauce');
   await page.getByRole('button',{name:'Login' }).click();
 
-  await expect(page.getByText('Products')).toBeVisible();
+  await expect(page.getByText('Products',{exact:true})).toBeVisible();
   await expect(page).toHaveURL(/inventory.html/);
 
-  await page.locator('#react-burger-menu-btn').click();
-  await page.getByText('Logout').click();
+  await page.getByRole('button', { name: 'Open Menu' }).click();
+  await page.getByRole('link', { name: 'Logout' }).click();
 });
 
 test('амжилтгүй нэвтрэх',async({page})=> {
@@ -43,6 +43,6 @@ test('нэвтэрсний дараа бараа сагслах', async ({ page 
   await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
   await page.locator('.shopping_cart_link').click();
   await expect(page.getByText('Sauce Labs Backpack')).toBeVisible();
-  await page.locator('#react-burger-menu-btn').click();
-  await page.getByText('Logout').click();
+  await page.getByRole('button', { name: 'Open Menu' }).click();
+  await page.getByRole('link', { name: 'Logout' }).click();
 });
